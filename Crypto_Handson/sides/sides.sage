@@ -7,10 +7,12 @@ from top_secret import secret
 sides = SimplifiedDES()
 tobin = BinaryStrings()
 ptext = tobin.encoding(secret)
+print(ptext)
 assert len(ptext) % 8 == 0
 
 key = sides.list_to_string(sides.random_key())
 ciphertext = sides(ptext, key, algorithm = "encrypt")
+
 enc = int(str(ciphertext), 2)
 
 print('enc =', enc)

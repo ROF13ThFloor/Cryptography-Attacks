@@ -3,8 +3,6 @@ import binascii
 def str_to_int(msg):
     return int(binascii.hexlify(msg).decode(),16)
 
-def int_to_str(msg):
-    return (binascii.unhexlify(hex(msg)))
 
 def generate_RSA_key_pair(N):
     n = 0
@@ -33,7 +31,7 @@ def encrypt(m,public):
 
 def decrypt(c, private):
     n = private[0]
-    d = private[1]    
+    d = private[1]  
     print(binascii.unhexlify(hex(power_mod(c, d,n))))
 
 print(pub, priv, pq)    
