@@ -4,10 +4,10 @@ import binascii
 def LowExponent(encs,modules):
     
     M3=CRT_list([Integer(encs[0]) , Integer(encs[1]) , Integer(encs[2])], [Integer(modules[0]) , Integer(modules[1]) , Integer(modules[2])])
+    print(M3)
     M=(M3)^(1/3)
     print(M)
-    print(hex(int(M)))
-    print(type(hex(M)))
+    print(type(M))
     pretty_print(binascii.unhexlify(hex(M)[2:]))
     return M
 

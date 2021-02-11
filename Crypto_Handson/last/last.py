@@ -19,7 +19,7 @@ print(binascii.hexlify(pre).decode())
 crypt1r = AES.new(bytes(0x10), AES.MODE_ECB)
 tail  = crypt1r.decrypt(pre)
 
-msg = b'I think cryptography is really cool, you?\0.....'
+msg = b'I think cryptography is really cool, you?\0 .......'
 
 for i in range(256):
     b = bytes([i])
@@ -34,3 +34,4 @@ post = msg
 if post.startswith(b'I think cryptography is really cool, you?\0') \
         and cryptocrypto(post) == pre:
     print("Well done!!!")
+    
