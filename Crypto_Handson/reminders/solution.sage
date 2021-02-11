@@ -9,35 +9,13 @@ import unicodedata
 import rsa
 
 
-#convert message to integer 
-def msg_to_int(msg):
-    int_msg = ""
-    for ch in msg:
-        pre = "{0:b}".format(ord(ch))
-        if len(pre) < 7:
-            pre = "0" * (7 - len(pre)) + pre
-        int_msg += pre
-
-    return int(int_msg, 2)
-
-#convert int to msg 
-
-def int_to_msg(i):
-    bin_format = "{0:7b}".format(i)
-    msg = ""
-
-    for b in range(0, len(bin_format), 7):
-        msg += chr(int(bin_format[b:b + 7], 2))
-
-    return msg
-
 def find_common_key(all_N):
     pubkeys = all_N
     q = 0
     for p1, p2 in itertools.permutations(pubkeys, int(2)):
         g = gcd(p1, p2)
         if g != 1:
-            print("--------------",pubkeys.index(p1),pubkeys.index(p2))
+            print("theese modules have common factor ",pubkeys.index(p1),pubkeys.index(p2))
             print("we have common factor with gcd ")
             print("modules is : ", pubkeys.index(p1), "   :" , p1)
             index_of_pubkey = pubkeys.index(p1)
@@ -45,19 +23,6 @@ def find_common_key(all_N):
             return g , Q_factor , index_of_pubkey
            #return p and Q_factor
 
-
-
-
-def bytes_to_int(bytes):
-    result = 0
-    for b in bytes:
-        result = result * 256 + int(b)
-    return result
-
-
-
-def decrypt(c, n , d):  
-    print(binascii.unhexlify(hex(power_mod(c, d,n))[2:]))
 
 
 
@@ -87,34 +52,28 @@ with open('encs/secret_' + str(attack_point[2]).zfill(3) + '.enc' ,"rb" ) as fil
 
 
 
+print("encrypted msg in byte is " , enc_data)
+print("encrypted msg in hex is :" ,enc_data.hex())
+print("integer of cipher is " , int.from_bytes(enc_data, "big"))
 
-print(type(Modules_factor))
-print(type(e_factor))
-print(type(int(d_fctor)))
-print(type(int(attack_point[0])))
-print(type(int(attack_point[1])))
-
-
-
-
-
-
-print(attack_point[0])
-print(attack_point[1])
-
-
-#decrypt(bytes_to_int(enc_data) , Modules_factor , d_fctor)
-
-
-print("cipher is " , int(binascii.hexlify(enc_data).decode(),16 ))
-
-print("d is " , d_fctor)
-
-print(" module is : " , Modules_factor)
-
-
-
+print("p is : " , attack_point[0])
+print("q is : " , attack_point[1])
+print("modules is : " , Modules_factor)
+print("multiple p * q is  : " , attack_point[0]*attack_point[1])
+print("euler_num is : " , euler_num)
+print("e is : " ,  e_factor)
+print("d is : " , d_fctor)
+print("e*d = " , mod(d_fctor*e_factor , euler_num))
 plaintext = power_mod(int(enc_data.hex() , 16) , d_fctor, Modules_factor)
+p = binascii.unhexlify(hex(plaintext)[2:])
+print(p)
+
+#print("d is " , d_fctor)
+
+#print(" module is : " , Modules_factor)
+
+
+
 
 
 
