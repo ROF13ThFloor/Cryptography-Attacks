@@ -47,6 +47,8 @@ KeyCrack/
 - Python  3 (for script automation)
 - Basic understanding of RSA encryption
 
+**Note: ** This is an educational project for cryptographic course 
+
 ## License
 
 This project is licensed under the MIT License.
